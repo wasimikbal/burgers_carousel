@@ -16,7 +16,7 @@ loadModels(paths).then((models) => {
 
 	init(models);
 	animate();
-	
+
 }).catch((error) => {
 	console.log(error)
 });
@@ -57,9 +57,15 @@ function init(models) {
 
 		const camera = new THREE.PerspectiveCamera(75, 300/300);
 		camera.position.z = distance * 1.5;
+		camera.position.y = boxCOG.y;
+		console.log(`${camera.position.y} | ${boxCOG.y}`)
 		camera.lookAt(boxCOG)
 		scene.userData.camera = camera;
-
+		model.position.set(0,0,0);
+		camera.position.y = 0;
+		// console.log(`Model: ${model.position} | Camera: ${camera.position}`)
+		// console.log(model.position)
+		// console.log(camera.position)
 		const controls = new OrbitControls(scene.userData.camera, scene.userData.element);
 		// controls.minDistance = 2;
 		// controls.maxDistance = 5;
@@ -140,7 +146,6 @@ function render() {
 
 		}
 
-		console.log(rect)
 		// set the viewport
 		const width = rect.right - rect.left;
 		const height = rect.bottom - rect.top;
